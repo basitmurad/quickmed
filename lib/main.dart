@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quickmed/routes/app_routes.dart';
 import 'package:quickmed/utils/theme/themes.dart';
-import 'modules/shared/splash/splash_screen.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Your App Name',
 
@@ -31,8 +32,8 @@ class MyApp extends StatelessWidget {
       darkTheme: TAppTheme.darkTheme,
       themeMode: ThemeMode.system, // Follows device setting
 
-      // Start with splash screen
-      home: const SplashScreen(),
+      // Connect GoRouter
+      routerConfig: AppRouter.router,
     );
   }
 }

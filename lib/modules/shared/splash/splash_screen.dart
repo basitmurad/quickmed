@@ -2,10 +2,12 @@ import 'dart:math' show cos, sin, pi;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quickmed/utils/app_text_style.dart';
 import 'package:quickmed/utils/device_utility.dart';
 import 'package:quickmed/utils/image_path.dart';
 import '../../../utils/theme/colors/q_color.dart';
+import '../../../utils/widgets/quick_med_logo.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -40,7 +42,15 @@ class _SplashScreenState extends State<SplashScreen>
     )..repeat();
 
     _fadeController.forward();
+
+    // Navigate to LoginScreen after 3 seconds
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        context.go('/loginScreen'); // GoRouter navigation
+      }
+    });
   }
+
 
   @override
   void dispose() {
@@ -60,25 +70,11 @@ class _SplashScreenState extends State<SplashScreen>
             const Spacer(flex: 1),
 
             // LOGO + APP NAME
-            FadeTransition(
-              opacity: _fadeAnimation,
-              child: Column(
-                children: [
-                  _buildCrossLogo(),
-                  const SizedBox(height: 12),
-                  Text(
-                    'QuickMed',
-                    style: TAppTextStyle.inter(
-                      color: isDark ? Colors.white : QColors.primary,
-                      fontSize: 56.0,
-                      letterSpacing: 1.9,
-                      height: 1.2,
-                      weight: FontWeight.w900,
-                    ),
-                  ),
-                ],
-              ),
+            QuickMedLogo(
+              fadeAnimation: _fadeAnimation,
+              isDark: isDark,
             ),
+
 
             const SizedBox(height: 25),
 
@@ -192,54 +188,4 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  Widget _buildCrossLogo() {
-    return Container(
-      width: 120,
-      height: 120,
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            left: 45,
-            top: 10,
-            child: Container(
-              width: 30,
-              height: 100,
-              decoration: BoxDecoration(
-                color: QColors.primary,
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 10,
-            top: 45,
-            child: Container(
-              width: 100,
-              height: 30,
-              decoration: BoxDecoration(
-                color: QColors.primary,
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-          ),
-          Positioned(
-            right: 8,
-            top: 8,
-            child: Container(
-              width: 20,
-              height: 20,
-              decoration: const BoxDecoration(
-                color: QColors.primary,
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
