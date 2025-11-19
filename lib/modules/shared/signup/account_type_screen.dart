@@ -22,139 +22,89 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Row(
-                    children: [
-                      Icon(Icons.arrow_back,
-                          color: isDark ? Colors.white : Colors.black),
-                      const SizedBox(width: 6),
-                      Text(
-                        "Go Back",
-                        style: TAppTextStyle.inter(
-                          color: isDark ? Colors.white : Colors.black,
-                          fontSize: 16,
-                          weight: FontWeight.w500,
-                        ),
-                      )
-                    ],
+
+
+              Center(
+                child: Text(
+                  "Chose Account Type",
+                  style: TAppTextStyle.inter(
+                    color: isDark ? Colors.white70 : Colors.black,
+                    fontSize: 16,
+                    weight: FontWeight.w600,
                   ),
                 ),
+              ),
 
-                const SizedBox(height: 26),
+              const SizedBox(height: 18),
 
-                Center(
-                  child: Text(
-                    "Create Account",
-                    style: TAppTextStyle.inter(
-                      color: isDark ? Colors.white : Colors.black,
-                      fontSize: 22,
-                      weight: FontWeight.w700,
-                    ),
+              /// Patient & Doctor Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _typeButton("Patient", isDark),
+                  _typeButton("Doctor", isDark),
+                ],
+              ),
+
+              const SizedBox(height: 32),
+
+              Center(
+                child: Text(
+                  "Medical History",
+                  style: TAppTextStyle.inter(
+                    color: isDark ? Colors.white70 : Colors.black,
+                    fontSize: 16,
+                    weight: FontWeight.w600,
                   ),
                 ),
+              ),
 
-                const SizedBox(height: 22),
+              const SizedBox(height: 16),
 
-                Center(
-                  child: Text(
-                    "Chose Account Type",
-                    style: TAppTextStyle.inter(
-                      color: isDark ? Colors.white70 : Colors.black,
-                      fontSize: 16,
-                      weight: FontWeight.w600,
-                    ),
+              TextInputWidget(
+                dark: isDark,
+                fillColor: Colors.transparent,
+                headerText: "Enter Health Issues (optional)",
+                hintText: "e.g. Hypertension",
+              ),
+
+              const SizedBox(height: 24),
+
+              Row(
+                children: [
+                  Checkbox(
+                    value: acceptTerms,
+                    activeColor: QColors.primary,
+                    onChanged: (val) {
+                      setState(() => acceptTerms = val!);
+                    },
                   ),
-                ),
-
-                const SizedBox(height: 18),
-
-                /// Patient & Doctor Buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _typeButton("Patient", isDark),
-                    _typeButton("Doctor", isDark),
-                  ],
-                ),
-
-                const SizedBox(height: 32),
-
-                Center(
-                  child: Text(
-                    "Medical History",
-                    style: TAppTextStyle.inter(
-                      color: isDark ? Colors.white70 : Colors.black,
-                      fontSize: 16,
-                      weight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                TextInputWidget(
-                  dark: isDark,
-                  fillColor: Colors.transparent,
-                  headerText: "Enter Health Issues (optional)",
-                  hintText: "e.g. Hypertension",
-                ),
-
-                const SizedBox(height: 24),
-
-                Row(
-                  children: [
-                    Checkbox(
-                      value: acceptTerms,
-                      activeColor: QColors.primary,
-                      onChanged: (val) {
-                        setState(() => acceptTerms = val!);
-                      },
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() => acceptTerms = !acceptTerms);
-                      },
-                      child: Text(
-                        "Accept terms and Conditions",
-                        style: TAppTextStyle.inter(
-                          color: QColors.primary,
-                          fontSize: 16,
-                          weight: FontWeight.w500,
-                          shouldUnderline: true,
-                        ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => acceptTerms = !acceptTerms);
+                    },
+                    child: Text(
+                      "Accept terms and Conditions",
+                      style: TAppTextStyle.inter(
+                        color: QColors.primary,
+                        fontSize: 16,
+                        weight: FontWeight.w500,
+                        shouldUnderline: true,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
 
-                const SizedBox(height: 32),
+              const SizedBox(height: 32),
 
-                QButton(
-                  text: "Continue",
-                  onPressed: () {
-                    if (!acceptTerms) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("Please accept terms to continue")),
-                      );
-                      return;
-                    }
 
-                    // Final Submit
-                  },
-                ),
-
-                const SizedBox(height: 26),
-              ],
-            ),
+            ],
           ),
         ),
       ),

@@ -1,11 +1,16 @@
 
 
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickmed/routes/routes.dart';
 
 import '../core/global.dart';
+import '../modules/shared/error/general_error_screen.dart';
 import '../modules/shared/login/login_screen.dart';
+import '../modules/shared/otp/otp_verification_screen.dart';
+import '../modules/shared/signup/signup_screen.dart';
 import '../modules/shared/splash/splash_screen.dart';
+import '../modules/shared/success_screen/account_creation_success_screen.dart';
 
 class AppRouter {
   static final router = GoRouter(
@@ -24,6 +29,36 @@ class AppRouter {
         path: '/loginScreen',
         name: Routes.loginScreen.name,
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/signUpScreen',
+        name: Routes.signUpScreen.name,
+        builder: (context, state) => const SignUpScreen(),
+      ),
+      GoRoute(
+        path: '/oTPVerificationScreen',
+        name: Routes.oTPVerificationScreen.name,
+        builder: (context, state) => const OTPVerificationScreen(),
+      ),
+      GoRoute(
+        path: '/accountCreationSuccessScreen',
+        name: Routes.accountCreationSuccessScreen.name,
+        builder: (context, state) => const AccountCreationSuccessScreen(),
+      ),
+      GoRoute(
+        path: '/generalErrorScreen',
+        name: Routes.generalErrorScreen.name,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>?;
+
+          return GeneralErrorScreen(
+            title: data?['title'] ?? "Error",
+            message: data?['message'] ?? "Something went wrong.",
+            icon: data?['icon'] ?? Icons.error_outline,
+            buttonText: data?['buttonText'] ?? "Retry",
+            onRetry: data?['onRetry'] ?? () {},
+          );
+        },
       ),
 
 

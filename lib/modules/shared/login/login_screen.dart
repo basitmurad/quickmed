@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickmed/routes/app_routes.dart';
 import 'package:quickmed/utils/app_text_style.dart';
 import 'package:quickmed/utils/widgets/TButton.dart';
 import 'package:quickmed/utils/widgets/text_input_widget.dart';
@@ -133,6 +134,8 @@ class _LoginScreenState extends State<LoginScreen>
               /// Create Account (underlined)
               GestureDetector(
                 onTap: () {
+
+                  AppRouter.router.push('/signUpScreen');
                   // TODO: Navigate to create account screen
                 },
                 child: Text(
