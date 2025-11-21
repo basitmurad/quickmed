@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:quickmed/utils/app_text_style.dart';
 import 'package:quickmed/utils/theme/colors/q_color.dart';
 
+import '../../../routes/app_routes.dart';
+
 class AccountCreationSuccessScreen extends StatelessWidget {
   const AccountCreationSuccessScreen({super.key});
 
@@ -64,7 +66,8 @@ class AccountCreationSuccessScreen extends StatelessWidget {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         // Navigate to login screen
-                        Navigator.pop(context); // can change to router
+                        AppRouter.router.go('/loginScreen');
+
                       },
                   ),
                 ),
