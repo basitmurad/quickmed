@@ -48,7 +48,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             children: [
               SizedBox(height: 6,),
-
               /// ---------------- BACK BUTTON ----------------
               Align(
                 alignment: Alignment.centerLeft,

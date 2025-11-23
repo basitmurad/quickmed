@@ -1,9 +1,12 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quickmed/modules/patient/dashboard/screens/chat_doctor_screen.dart';
+import 'package:quickmed/modules/patient/dashboard/screens/chat_doctor_select_appointment_screen.dart';
+import 'package:quickmed/modules/patient/dashboard/screens/patient_account_setting_screen.dart';
+import 'package:quickmed/modules/patient/dashboard/screens/patient_appointment_screen.dart';
+import 'package:quickmed/modules/patient/dashboard/screens/patient_dashboard_screen.dart';
+import 'package:quickmed/modules/patient/dashboard/screens/patient_profile_screen.dart';
 import 'package:quickmed/routes/routes.dart';
-
 import '../core/global.dart';
 import '../modules/shared/error/general_error_screen.dart';
 import '../modules/shared/login/login_screen.dart';
@@ -16,7 +19,8 @@ class AppRouter {
   static final router = GoRouter(
     navigatorKey: navigatorKey,
     debugLogDiagnostics: true,
-    initialLocation: '/splashScreen',
+    initialLocation: //'/splashScreen',
+        '/patientDashboardScreen',
     // initialLocation: '/navigationMenu',
     routes: [
       GoRoute(
@@ -46,6 +50,36 @@ class AppRouter {
         builder: (context, state) => const AccountCreationSuccessScreen(),
       ),
       GoRoute(
+        path: '/patientDashboardScreen',
+        name: Routes.patientDashboardScreen.name,
+        builder: (context, state) => const PatientDashboardScreen(),
+      ),
+      GoRoute(
+        path: '/patientProfileScreen',
+        name: Routes.patientProfileScreen.name,
+        builder: (context, state) => const PatientProfileScreen(),
+      ),
+      GoRoute(
+        path: '/patientAccountSettingScreen',
+        name: Routes.patientAccountSettingScreen.name,
+        builder: (context, state) => const PatientAccountSettingScreen(),
+      ),
+      GoRoute(
+        path: '/patientAppointmentScreen',
+        name: Routes.patientAppointmentScreen.name,
+        builder: (context, state) => const PatientAppointmentScreen(),
+      ),
+      GoRoute(
+        path: '/chatDoctorScreen',
+        name: Routes.chatDoctorScreen.name,
+        builder: (context, state) => const ChatDoctorScreen(),
+      ),
+      GoRoute(
+        path: '/chatDoctorSelectAppointmentScreen',
+        name: Routes.chatDoctorSelectAppointmentScreen.name,
+        builder: (context, state) => const ChatDoctorSelectAppointmentScreen(),
+      ),
+      GoRoute(
         path: '/generalErrorScreen',
         name: Routes.generalErrorScreen.name,
         builder: (context, state) {
@@ -60,8 +94,6 @@ class AppRouter {
           );
         },
       ),
-
-
     ],
   );
 }

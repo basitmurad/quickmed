@@ -4,6 +4,11 @@ enum Routes {
   signUpScreen,
   oTPVerificationScreen,
   accountCreationSuccessScreen,
-  generalErrorScreen
-
+  generalErrorScreen,
+  patientDashboardScreen,
+  patientProfileScreen,
+  patientAccountSettingScreen,
+  patientAppointmentScreen,
+  chatDoctorSelectAppointmentScreen,
+  chatDoctorScreen
 }
