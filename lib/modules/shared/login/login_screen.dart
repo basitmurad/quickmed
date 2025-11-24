@@ -33,9 +33,7 @@ class _LoginScreenState extends State<LoginScreen>
     _fadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
-    ).animate(
-      CurvedAnimation(parent: _fadeController, curve: Curves.easeIn),
-    );
+    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeIn));
 
     _dotsController = AnimationController(
       vsync: this,
@@ -113,10 +111,7 @@ class _LoginScreenState extends State<LoginScreen>
               const SizedBox(height: 20),
 
               /// ---------------- LOGIN BUTTON ----------------
-              QButton(
-                text: 'Login',
-                onPressed: () {},
-              ),
+              QButton(text: 'Login', onPressed: () {}),
 
               const SizedBox(height: 24),
 
@@ -134,7 +129,6 @@ class _LoginScreenState extends State<LoginScreen>
               /// Create Account (underlined)
               GestureDetector(
                 onTap: () {
-
                   AppRouter.router.push('/signUpScreen');
                   // TODO: Navigate to create account screen
                 },
@@ -166,11 +160,12 @@ class _LoginScreenState extends State<LoginScreen>
                     height: 1.8,
                     weight: FontWeight.w500,
                     shouldUnderline: true,
-                    underlineColor: isDark ? Colors.white : QColors.lightGray800,
+                    underlineColor: isDark
+                        ? Colors.white
+                        : QColors.lightGray800,
                   ),
                 ),
               ),
-
               const SizedBox(height: 24),
             ],
           ),
