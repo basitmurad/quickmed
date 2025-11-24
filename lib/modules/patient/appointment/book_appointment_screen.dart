@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../routes/app_routes.dart';
 import '../../../utils/app_text_style.dart';
 import '../../../utils/device_utility.dart';
+import '../../../utils/image_path.dart';
+import '../../../utils/theme/colors/q_color.dart';
 import '../../../utils/widgets/TButton.dart';
 import '../../../utils/widgets/text_input_widget.dart';
+import '../dashboard/widgets/profile_pic.dart';
 
 class BookAppointmentScreen extends StatefulWidget {
   const BookAppointmentScreen({super.key});
@@ -28,26 +33,55 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
             children: [
               /// Back button
               SizedBox(height: 12),
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.arrow_back,
-                      color: isDark ? Colors.white : Colors.black,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      "Go Back",
-                      style: TAppTextStyle.inter(
-                        color: isDark ? Colors.white : Colors.black,
-                        fontSize: 16,
-                        weight: FontWeight.w500,
+              Row(
+                mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                children: [
+                  ProfilePic(
+                    imagePath: QImagesPath.profileImg,
+                    onTap: () => context.push('/patientProfileScreen'),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Center(
+                      child: IconButton(
+                        onPressed: () {
+                          AppRouter.router.push('/notificationScreen');
+
+
+                        },
+                        icon: Icon(
+                          Icons.notifications_outlined,
+                          color: QColors.newPrimary500,
+                          size: 35,
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+
+                  /// ---------------- NOTIFICATION BUTTON ---------------- ///
+                ],
               ),
+              // GestureDetector(
+              //   onTap: () => Navigator.pop(context),
+              //   child: Row(
+              //     children: [
+              //       Icon(
+              //         Icons.arrow_back,
+              //         color: isDark ? Colors.white : Colors.black,
+              //       ),
+              //       const SizedBox(width: 6),
+              //       Text(
+              //         "Go Back",
+              //         style: TAppTextStyle.inter(
+              //           color: isDark ? Colors.white : Colors.black,
+              //           fontSize: 16,
+              //           weight: FontWeight.w500,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
 
               const SizedBox(height: 26),
 
@@ -91,6 +125,12 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
               QButton(
                 text: "Continue",
                 onPressed: () {
+                  // AppRouter.router.push('/systemSuggestingDoctorScreen');
+                  // AppRouter.router.push('/noAvailableDoctorScreen');
+                  AppRouter.router.push('/systemSuggestingDoctorScreen');
+                  // AppRouter.router.push('/selectAppointmentScreen');
+
+                  // SystemSuggestingDoctorScreen
                   // You can add validation or submit here
                 },
               ),

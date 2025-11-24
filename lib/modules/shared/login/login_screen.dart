@@ -91,6 +91,9 @@ class _LoginScreenState extends State<LoginScreen>
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () {
+                      AppRouter.router.push('/forgotPasswordScreen');
+
+
                       // TODO: Navigate to forgot password screen
                     },
                     child: Text(
@@ -111,7 +114,11 @@ class _LoginScreenState extends State<LoginScreen>
               const SizedBox(height: 20),
 
               /// ---------------- LOGIN BUTTON ----------------
-              QButton(text: 'Login', onPressed: () {}),
+              QButton(text: 'Login', onPressed: () {
+                AppRouter.router.push('/patientBottomNavScreen');
+
+
+              }),
 
               const SizedBox(height: 24),
 

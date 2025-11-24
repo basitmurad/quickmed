@@ -13,17 +13,13 @@ import 'package:quickmed/utils/widgets/text_input_widget.dart';
 
 import '../../../../routes/app_routes.dart';
 
-class PatientDashboardScreen extends StatelessWidget {
-  const PatientDashboardScreen({super.key});
+class AppointmentScreen extends StatelessWidget {
+  const AppointmentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     bool isDark = TDeviceUtils.isDarkMode(context);
 
-    final now = DateTime.now();
-
-    final formattedDate = DateFormat('EEE d MMM yyyy').format(now); // Example: Wed 9 Oct 2025
-    final formattedTime = DateFormat('HH:mm').format(now);
     return Scaffold(
 
       body: SafeArea(
@@ -44,9 +40,8 @@ class PatientDashboardScreen extends StatelessWidget {
                     /// ---------------- SEARCH BAR WIDGET ---------------- ///
                     Expanded(
                       child: TextInputWidget(
-                        dark: isDark,
                         height: 42,
-
+                        dark: isDark,
                         hintText: "Search Appointments",
                         fillColor: Colors.transparent,
                         radius: BorderRadius.circular(24),
@@ -79,17 +74,10 @@ class PatientDashboardScreen extends StatelessWidget {
                     /// ---------------- NOTIFICATION BUTTON ---------------- ///
                   ],
                 ),
-                SizedBox(height: 20),
 
-                CurrentDateTimeWidget(
-                  date: formattedDate,
-                  time: formattedTime,
-                ),
-
-                SizedBox(height: 10),
 
                 /// ---------------- UPCOMING APPOINTMENT ---------------- ///
-                HeadingText(text: "Upcoming Appointments"),
+                HeadingText(text: "Appointments"),
                 AppointmentWidget(
                   date: "10 October 2025",
                   time: "10:30 AM",
@@ -100,31 +88,17 @@ class PatientDashboardScreen extends StatelessWidget {
                   time: "9:30 AM",
                   status: Status.rejected,
                 ),
-                QButton(
-                  text: "View All",
-                  buttonType: QButtonType.text,
-                  onPressed: () {},
+                Container(
+                  alignment: Alignment.topRight,
+                  child: QButton(
+                    text: "View All",
+                    width: 100,
+                    buttonType: QButtonType.text,
+                    onPressed: () {},
+                  ),
                 ),
 
-                /// ---------------- UPCOMING APPOINTMENT ---------------- ///
 
-                /// ---------------- RECENT APPOINTMENT ---------------- ///
-                HeadingText(text: "Recent Appointments"),
-                AppointmentWidget(
-                  date: "1 October 2025",
-                  time: "10:30 AM",
-                  status: Status.complete,
-                ),
-                AppointmentWidget(
-                  date: "2 October 2025",
-                  time: "10:30 AM",
-                  status: Status.noShow,
-                ),
-                QButton(
-                  text: "View All",
-                  buttonType: QButtonType.text,
-                  onPressed: () {},
-                ),
 
                 /// ---------------- RECENT APPOINTMENT ---------------- ///
               ],

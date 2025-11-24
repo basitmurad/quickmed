@@ -14,32 +14,47 @@ import '../modules/patient/appointment/no_available_doctor_screen.dart';
 import '../modules/patient/appointment/select_appointment_screen.dart';
 import '../modules/patient/appointment/suggested_doctor_screen.dart';
 import '../modules/patient/appointment/system_suggesting_doctor_screen.dart';
+import '../modules/patient/notification/notification_screen.dart';
 import '../modules/shared/error/general_error_screen.dart';
+import '../modules/shared/forget_password_screen /forget_password_screen.dart';
 import '../modules/shared/login/login_screen.dart';
 import '../modules/shared/otp/otp_verification_screen.dart';
 import '../modules/shared/signup/signup_screen.dart';
 import '../modules/shared/splash/splash_screen.dart';
 import '../modules/shared/success_screen/account_creation_success_screen.dart';
+import '../navigatyion.dart';
 
 class AppRouter {
   static final router = GoRouter(
     navigatorKey: navigatorKey,
     debugLogDiagnostics: true,
-    initialLocation: //'/splashScreen',
-        '/patientDashboardScreen',
-    initialLocation: '/appointmentSuccessScreen',
-    // initialLocation: '/navigationMenu',
+    initialLocation: '/splashScreen',
     routes: [
       GoRoute(
         path: '/splashScreen',
         name: Routes.splashScreen.name,
         builder: (context, state) => SplashScreen(),
       ),
+      GoRoute(
+        path: '/barberBottomNavScreen',
+        name: Routes.barberBottomNavScreen.name,
+        builder: (context, state) => DoctorBottomNavScreen(),
+      ),
+      GoRoute(
+        path: '/patientBottomNavScreen',
+        name: Routes.patientBottomNavScreen.name,
+        builder: (context, state) => PatientBottomNavScreen(),
+      ),
 
       GoRoute(
         path: '/loginScreen',
         name: Routes.loginScreen.name,
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/forgotPasswordScreen',
+        name: Routes.forgotPasswordScreen.name,
+        builder: (context, state) => const ForgotPasswordScreen(),
       ),
       GoRoute(
         path: '/bookAppointmentScreen',
@@ -79,6 +94,11 @@ class AppRouter {
         path: '/oTPVerificationScreen',
         name: Routes.oTPVerificationScreen.name,
         builder: (context, state) => const OTPVerificationScreen(),
+      ),
+      GoRoute(
+        path: '/notificationScreen',
+        name: Routes.notificationScreen.name,
+        builder: (context, state) => const NotificationScreen(),
       ),
       GoRoute(
         path: '/accountCreationSuccessScreen',

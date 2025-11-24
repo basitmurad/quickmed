@@ -16,5 +16,9 @@ enum Routes {
   patientAccountSettingScreen,
   patientAppointmentScreen,
   chatDoctorSelectAppointmentScreen,
-  chatDoctorScreen
+  chatDoctorScreen,
+  barberBottomNavScreen,
+  patientBottomNavScreen,
+  notificationScreen,
+  forgotPasswordScreen
 }
