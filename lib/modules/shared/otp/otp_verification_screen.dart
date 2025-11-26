@@ -139,7 +139,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
               QButton(
                 text: 'Verify Your Account',
                 onPressed: () {
-                  AppRouter.router.push('/oTPVerificationScreen ');
+                  AppRouter.router.push('/dashBoardScreen');
 
                   print("Submit all data");
                 },

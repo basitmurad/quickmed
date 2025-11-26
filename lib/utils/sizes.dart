@@ -1,5 +1,4 @@
 class QSizes {
-
   QSizes._();
 
   // Paddings and margin sizes
@@ -14,7 +13,6 @@ class QSizes {
   static const double iconSm = 16.0;
   static const double iconMd = 24.0;
   static const double iconLg = 32.0;
-
 
   //Font Size
   static const double fontSizeXESm = 11.0;
@@ -31,7 +29,8 @@ class QSizes {
   static const double buttonRadius = 12.0;
   static const double buttonWidth = 120.0;
   static const double buttonElevation = 4.0;
- // Appbar Height
+
+  // Appbar Height
   static const double appBarHeight = 56.0;
 
   // Image Size
@@ -42,15 +41,10 @@ class QSizes {
   static const double spaceBtwItems = 16.0;
   static const double spaceBtwSections = 32.0;
 
-  
-
-
-
   // Border Radius
   static const double borderRadiusSm = 4.0;
   static const double borderRadiusMd = 8.0;
   static const double borderRadiusLg = 12.0;
-
 
   // Divider
   static const double dividerHeight = 1.0;

@@ -4,6 +4,8 @@ enum Routes {
   signUpScreen,
   oTPVerificationScreen,
   accountCreationSuccessScreen,
-  generalErrorScreen
+  generalErrorScreen,
+  dashBoardScreen,
+  doctorProfileScreen, doctorAccountSetting, doctorAppointments, DoctorAppointmentScreen, acceptAppointment, appointmentAcceptedScreen, rejectAppointmentScreen, updateAvailabilityScreen, availabilityUpdatedScreen, appointmentRejectedScreen, getDirectionScreen
 
 }
