@@ -21,4 +21,8 @@ enum Routes {
   patientBottomNavScreen,
   notificationScreen,
   forgotPasswordScreen
+  generalErrorScreen,
+  dashBoardScreen,
+  doctorProfileScreen, doctorAccountSetting, doctorAppointments, DoctorAppointmentScreen, acceptAppointment, appointmentAcceptedScreen, rejectAppointmentScreen, updateAvailabilityScreen, availabilityUpdatedScreen, appointmentRejectedScreen, getDirectionScreen
+
 }

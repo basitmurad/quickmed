@@ -1,4 +1,5 @@
 class QImagesPath {
+
   QImagesPath._();
 
   static const String image1 = "assets/images/image1.png";
@@ -6,6 +7,9 @@ class QImagesPath {
   static const String image3 = "assets/images/image3.png";
   static const String profileImg = "assets/images/profile_image.png";
   static const String doctorProfileImg = "assets/images/doctor_profile_pic.png";
+  static const String profile = "assets/images/profileImg.png";
+  static const String successfully = "assets/images/ticon.png";
+
 
   /// Icons
   static const String search = "assets/icons/search.svg";
