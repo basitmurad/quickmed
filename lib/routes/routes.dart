@@ -20,9 +20,55 @@ enum Routes {
   barberBottomNavScreen,
   patientBottomNavScreen,
   notificationScreen,
-  forgotPasswordScreen
-  generalErrorScreen,
-  dashBoardScreen,
-  doctorProfileScreen, doctorAccountSetting, doctorAppointments, DoctorAppointmentScreen, acceptAppointment, appointmentAcceptedScreen, rejectAppointmentScreen, updateAvailabilityScreen, availabilityUpdatedScreen, appointmentRejectedScreen, getDirectionScreen
+  forgotPasswordScreen,
+  doctorBottomNavScreen
+
+  ,
+
+  dashBoardScreen
+
+  ,
+
+  doctorProfileScreen
+
+  ,
+
+  doctorAccountSetting
+
+  ,
+
+  doctorAppointments
+
+  ,
+
+  DoctorAppointmentScreen
+
+  ,
+
+  acceptAppointment
+
+  ,
+
+  appointmentAcceptedScreen
+
+  ,
+
+  rejectAppointmentScreen
+
+  ,
+
+  updateAvailabilityScreen
+
+  ,
+
+  availabilityUpdatedScreen
+
+  ,
+
+  appointmentRejectedScreen
+
+  ,
+
+  getDirectionScreen
 
 }

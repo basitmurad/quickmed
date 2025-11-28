@@ -19,6 +19,14 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
   Widget build(BuildContext context) {
     bool isDark = TDeviceUtils.isDarkMode(context);
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.close, size: 28),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -27,19 +35,9 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
               children: [
                 SizedBox(height: QSizes.fontSizeXESm),
                 Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: Icon(Icons.close, size: 28),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                SizedBox(height: 30),
-                Align(
                   alignment: Alignment.center,
                   child: CircleAvatar(
-                    radius: 45,
+                    radius: 35,
                     backgroundImage: AssetImage(QImagesPath.profile),
                   ),
                 ),

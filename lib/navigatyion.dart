@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:quickmed/modules/doctor/dashboard/dash_board_screen.dart';
+import 'package:quickmed/modules/doctor/doctorappointment/doctor_appointment_screen.dart';
+import 'package:quickmed/modules/doctor/doctorappointmentdetail/doctor_appointment_screen.dart';
+import 'package:quickmed/modules/doctor/updateavailabilitycal/update_availability_screen.dart';
 import 'package:quickmed/modules/patient/appointment/book_appointment_screen.dart';
 import 'package:quickmed/modules/patient/dashboard/screens/patient_dashboard_screen.dart';
 import 'package:quickmed/utils/app_text_style.dart';
@@ -8,6 +12,7 @@ import 'package:quickmed/utils/image_path.dart';
 import 'package:quickmed/utils/theme/colors/q_color.dart';
 
 import 'modules/patient/dashboard/screens/appointment_screen.dart';
+
 class CommonBottomNavScreen extends StatefulWidget {
   final List<Widget> screens;
   final List<NavigationDestination> navItems;
@@ -47,17 +52,19 @@ class _CommonBottomNavScreenState extends State<CommonBottomNavScreen> {
     final bool isDark = TDeviceUtils.isDarkMode(context);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false, // This prevents the bottom nav from being hidden
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: widget.screens,
-      ),
+      resizeToAvoidBottomInset: false,
+      // This prevents the bottom nav from being hidden
+      body: IndexedStack(index: _selectedIndex, children: widget.screens),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           navigationBarTheme: NavigationBarThemeData(
-            backgroundColor: isDark ? QColors.darkBackground : QColors.lightBackground,
+            backgroundColor: isDark
+                ? QColors.darkBackground
+                : QColors.lightBackground,
             surfaceTintColor: Colors.transparent,
-            shadowColor: isDark ? Colors.transparent : Colors.black.withOpacity(0.1),
+            shadowColor: isDark
+                ? Colors.transparent
+                : Colors.black.withOpacity(0.1),
             elevation: isDark ? 0 : 8,
             indicatorColor: isDark
                 ? QColors.newPrimary500.withOpacity(0.2)
@@ -65,22 +72,24 @@ class _CommonBottomNavScreenState extends State<CommonBottomNavScreen> {
             indicatorShape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
-                  (Set<WidgetState> states) {
-                if (states.contains(WidgetState.selected)) {
-                  return TAppTextStyle.inter(
-                    color: isDark ? QColors.newPrimary500 : QColors.newPrimary600,
-                    fontSize: 10.0,
-                    weight: FontWeight.w600,
-                  );
-                }
+            labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>((
+              Set<WidgetState> states,
+            ) {
+              if (states.contains(WidgetState.selected)) {
                 return TAppTextStyle.inter(
-                  color: isDark ? QColors.darkTextTertiary : QColors.lightTextSecondary,
+                  color: isDark ? QColors.newPrimary500 : QColors.newPrimary600,
                   fontSize: 10.0,
-                  weight: FontWeight.w400,
+                  weight: FontWeight.w600,
                 );
-              },
-            ),
+              }
+              return TAppTextStyle.inter(
+                color: isDark
+                    ? QColors.darkTextTertiary
+                    : QColors.lightTextSecondary,
+                fontSize: 10.0,
+                weight: FontWeight.w400,
+              );
+            }),
           ),
         ),
         child: Container(
@@ -330,6 +339,7 @@ class NavConfig {
     ),
   ];
 }
+
 // Barber Bottom Navigation Screen
 class DoctorBottomNavScreen extends StatelessWidget {
   const DoctorBottomNavScreen({super.key});
@@ -339,17 +349,10 @@ class DoctorBottomNavScreen extends StatelessWidget {
     final bool isDark = TDeviceUtils.isDarkMode(context);
 
     return CommonBottomNavScreen(
-      screens:  [
-
-        Container(
-          color: Colors.red,
-        ),
-        Container(
-          color: Colors.black,
-        ),
-        Container(
-          color: Colors.green,
-        )
+      screens: [
+        DashBoardScreen(),
+        DoctorAppointments(),
+        UpdateAvailabilityScreen(),
         // CalendarBookingScreen(),
         // ClientsScreen(),
         // MessagesScreen(),
@@ -370,19 +373,12 @@ class PatientBottomNavScreen extends StatelessWidget {
     final bool isDark = TDeviceUtils.isDarkMode(context);
 
     return CommonBottomNavScreen(
-      screens:  [
+      screens: [
         PatientDashboardScreen(),
         AppointmentScreen(),
         BookAppointmentScreen(),
-
       ],
       navItems: NavConfig.customerNavItems(isDark),
     );
   }
 }
-
-
-
-
-
-

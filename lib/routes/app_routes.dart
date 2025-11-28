@@ -48,8 +48,8 @@ class AppRouter {
         builder: (context, state) => SplashScreen(),
       ),
       GoRoute(
-        path: '/barberBottomNavScreen',
-        name: Routes.barberBottomNavScreen.name,
+        path: '/doctorBottomNavScreen',
+        name: Routes.doctorBottomNavScreen.name,
         builder: (context, state) => DoctorBottomNavScreen(),
       ),
       GoRoute(

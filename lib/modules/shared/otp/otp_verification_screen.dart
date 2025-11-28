@@ -140,17 +140,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                   text: 'Verify Your Account',
                   onPressed: () {
                     AppRouter.router.push('/accountCreationSuccessScreen');
-              QButton(
-                text: 'Verify Your Account',
-                onPressed: () {
-                  AppRouter.router.push('/dashBoardScreen');
+                  }),
 
-                    print("Submit all data");
-                  },
-                ),
-
-              /// ---------------- VERIFY BUTTON ----------------
-              const SizedBox(height: 26),
             ],
           ),
         ),

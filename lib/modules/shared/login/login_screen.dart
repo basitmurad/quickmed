@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen>
 
               /// ---------------- LOGIN BUTTON ----------------
               QButton(text: 'Login', onPressed: () {
-                AppRouter.router.push('/patientBottomNavScreen');
+                AppRouter.router.push('/doctorBottomNavScreen');
 
 
               }),

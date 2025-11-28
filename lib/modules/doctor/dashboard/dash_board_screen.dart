@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:quickmed/modules/doctor/widgets/summary_item.dart';
 import 'package:quickmed/utils/app_text_style.dart';
 import 'package:quickmed/utils/image_path.dart';
@@ -15,9 +17,35 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
+  late Timer _timer;
+  late String _currentDateTime;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateDateTime();
+    // Update time every second
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _updateDateTime();
+    });
+  }
+
+  void _updateDateTime() {
+    final now = DateTime.now();
+    final dateFormat = DateFormat('EEE d MMM yyyy | HH:mm:ss');
+    setState(() {
+      _currentDateTime = dateFormat.format(now);
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -26,12 +54,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: QSizes.lg),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
                     InkWell(
                       onTap: () {
                         AppRouter.router.push('/doctorProfileScreen');
@@ -42,57 +67,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       ),
                     ),
                     SizedBox(width: 2),
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: 38,
-                          width: 230,
-                          child: Center(
-                            child: TextField(
-                              cursorColor: Colors.black,
-
-                              decoration: InputDecoration(
-                                hintText: "Search Appointments",
-                                hintStyle: TAppTextStyle.inter(
-                                  weight: FontWeight.w400,
-                                  color: QColors.lightGray400,
-                                  fontSize: QSizes.fontSizeSmx ,
-                                ),
-
-                                /// FIX: search icon alignment
-                                suffixIcon: Icon(
-                                  Icons.search,
-                                  color: QColors.lightTextColor,
-                                  size: 22,
-                                ),
-                                suffixIconConstraints: BoxConstraints(
-                                  minWidth: 40,
-                                  minHeight: 20,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: BorderSide(
-                                    color: QColors.progressLight,
-                                    width: 1,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: BorderSide(
-                                    color: QColors.progressLight,
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    /// SEARCH FIELD
-
-                    /// NOTIFICATION ICON
                     IconButton(
                       onPressed: () {},
                       icon: Icon(
@@ -106,7 +80,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 SizedBox(height: 20),
                 Center(
                   child: Text(
-                    "Today: Wed 9 Oct 2025 | 13:00",
+                    "Today: $_currentDateTime",
                     style: TAppTextStyle.inter(
                       color: QColors.lightTextColor,
                       fontSize: 20,
@@ -126,7 +100,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 SizedBox(height: 12),
                 Container(
                   width: 384,
-
                   padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.transparent,

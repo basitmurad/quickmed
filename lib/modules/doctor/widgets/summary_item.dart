@@ -47,7 +47,7 @@ class SummaryItem extends StatelessWidget {
             ],
 
             Text(
-              title,
+              '$title :',
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
@@ -56,6 +56,7 @@ class SummaryItem extends StatelessWidget {
             ),
 
 
+            SizedBox(width: 8,),
 
             /// ---- RIGHT SIDE (VALUE)
             if (value != null)
