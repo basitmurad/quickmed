@@ -760,7 +760,7 @@ class TextInputWidget extends StatefulWidget {
     this.textColor,
     this.iconColor,
     this.height = 54,
-    this.iconSize = 18.0,
+    this.iconSize = 18.0, this.errorText,
   });
 
   final TextEditingController? controller;
@@ -772,6 +772,7 @@ class TextInputWidget extends StatefulWidget {
   final bool isPassword;
   final String? hintText;
   final bool dark;
+  final String? errorText;
   final String? headerText;
   final TextStyle? headerStyle;
   final FontWeight? headerFontWeight;
@@ -1058,6 +1059,13 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                 borderRadius: widget.radius ?? BorderRadius.circular(8.0),
                 borderSide: BorderSide(width: 1.0, color: _getErrorBorderColor()),
               ),
+              errorText: widget.errorText,
+              errorStyle: TAppTextStyle.inter(
+                color: Colors.red,
+                fontSize: 12,
+                weight: FontWeight.w400,
+              ),
+              errorMaxLines: 2,
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 18.0,
                 horizontal: 18.0,
