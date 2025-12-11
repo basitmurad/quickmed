@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/repositories/auth_repository.dart';
+
 class LoginProvider extends ChangeNotifier {
   // ==================== CONTROLLERS ====================
+
+  final AuthRepository authRepository;
+
+  LoginProvider({required this.authRepository});
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 

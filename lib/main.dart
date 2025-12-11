@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:quickmed/core/endpoint/api_endpoints.dart';
+import 'package:quickmed/core/network/api_client.dart';
 import 'package:quickmed/modules/provider/LoginProvider.dart';
 import 'package:quickmed/modules/provider/SignUpProvider.dart';
 import 'package:quickmed/routes/app_routes.dart';
 import 'package:quickmed/utils/theme/themes.dart';
 
+import 'app_provider.dart';
+import 'core/di/InjectionContainer.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Set system UI overlay style
@@ -18,6 +22,9 @@ void main() {
     ),
   );
 
+  final di = InjectionContainer();
+  await di.init(baseUrl: ApiEndpoints.baseUrl);
+
   runApp(const MyApp());
 }
 
@@ -26,13 +33,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => SignUpProvider()),
-        ChangeNotifierProvider(create: (_) => LoginProvider()),
-        // Add more providers here
-      ],
-
+    return AppProviders.wrapWithProviders(
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Your App Name',
