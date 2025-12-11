@@ -9,6 +9,8 @@ class SignUpProvider extends ChangeNotifier {
   final TextEditingController confirmPasswordController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
+  final TextEditingController specializationController = TextEditingController();
+  final TextEditingController specializationSymptomsController = TextEditingController();
 
   // ==================== ADDRESS INFORMATION ====================
   final TextEditingController addressLine1Controller = TextEditingController();
@@ -37,6 +39,9 @@ class SignUpProvider extends ChangeNotifier {
   String? postcodeError;
   String? countryError;
 
+  String? specializationError;
+  String? specializationSymptomsError;
+
   String? termsError;
 
   // ==================== GETTERS ====================
@@ -57,6 +62,8 @@ class SignUpProvider extends ChangeNotifier {
       'country': countryController.text.trim(),
       'accountType': selectedAccountType,
       'medicalHistory': medicalHistoryController.text.trim(),
+      'specialization': specializationController.text.trim(),
+      'specializationSymptoms': specializationSymptomsController.text.trim(),
       'acceptedTerms': acceptTerms,
     };
   }
@@ -65,6 +72,9 @@ class SignUpProvider extends ChangeNotifier {
 
   void setAccountType(String type) {
     selectedAccountType = type;
+    // Clear errors when switching account type
+    specializationError = null;
+    specializationSymptomsError = null;
     notifyListeners();
   }
 
@@ -228,6 +238,35 @@ class SignUpProvider extends ChangeNotifier {
   bool validateAccountTypeAndTerms() {
     bool isValid = true;
 
+    // Doctor-specific validation
+    if (selectedAccountType == "Doctor") {
+      // Specialization Validation
+      if (specializationController.text.trim().isEmpty) {
+        specializationError = "Specialization is required for doctors";
+        isValid = false;
+      } else if (specializationController.text.trim().length < 3) {
+        specializationError = "Please enter a valid specialization";
+        isValid = false;
+      } else {
+        specializationError = null;
+      }
+
+      // Specialization Symptoms Validation
+      if (specializationSymptomsController.text.trim().isEmpty) {
+        specializationSymptomsError = "Specialization symptoms are required";
+        isValid = false;
+      } else if (specializationSymptomsController.text.trim().length < 3) {
+        specializationSymptomsError = "Please enter valid symptoms";
+        isValid = false;
+      } else {
+        specializationSymptomsError = null;
+      }
+    } else {
+      // Clear doctor-specific errors if Patient is selected
+      specializationError = null;
+      specializationSymptomsError = null;
+    }
+
     // Terms & Conditions Validation
     if (!acceptTerms) {
       termsError = "You must accept the terms and conditions";
@@ -320,6 +359,8 @@ class SignUpProvider extends ChangeNotifier {
     stateError = null;
     postcodeError = null;
     countryError = null;
+    specializationError = null;
+    specializationSymptomsError = null;
     termsError = null;
     notifyListeners();
   }
@@ -363,6 +404,12 @@ class SignUpProvider extends ChangeNotifier {
       case 'country':
         countryError = null;
         break;
+      case 'specialization':
+        specializationError = null;
+        break;
+      case 'specializationSymptoms':
+        specializationSymptomsError = null;
+        break;
     }
     notifyListeners();
   }
@@ -383,6 +430,8 @@ class SignUpProvider extends ChangeNotifier {
     postcodeController.clear();
     countryController.clear();
     medicalHistoryController.clear();
+    specializationController.clear();
+    specializationSymptomsController.clear();
 
     // Reset other fields
     selectedAccountType = "Patient";
@@ -412,6 +461,8 @@ class SignUpProvider extends ChangeNotifier {
     postcodeController.dispose();
     countryController.dispose();
     medicalHistoryController.dispose();
+    specializationController.dispose();
+    specializationSymptomsController.dispose();
     super.dispose();
   }
 }

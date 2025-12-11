@@ -760,7 +760,8 @@ class TextInputWidget extends StatefulWidget {
     this.textColor,
     this.iconColor,
     this.height = 54,
-    this.iconSize = 18.0, this.errorText,
+    this.iconSize = 18.0,
+    this.errorText,
   });
 
   final TextEditingController? controller;
@@ -846,18 +847,14 @@ class _TextInputWidgetState extends State<TextInputWidget> {
     if (widget.focusedBorderColor != null) {
       return widget.focusedBorderColor!;
     }
-    return widget.dark
-        ? QColors.newPrimary400
-        : QColors.newPrimary500;
+    return widget.dark ? QColors.newPrimary400 : QColors.newPrimary500;
   }
 
   Color _getErrorBorderColor() {
     if (widget.errorBorderColor != null) {
       return widget.errorBorderColor!;
     }
-    return widget.dark
-        ? QColors.error400
-        : QColors.error500;
+    return widget.dark ? QColors.error400 : QColors.error500;
   }
 
   Color _getTextColor() {
@@ -873,15 +870,15 @@ class _TextInputWidgetState extends State<TextInputWidget> {
     }
     return widget.dark
         ? QColors.darkTextTertiary
-        : QColors.lightTextTertiary; // Fixed: was using darkTextTertiary for both
+        : QColors.lightTextTertiary;
   }
 
   // Helper method to build prefix icon widget with FIXED sizing
   Widget? _buildPrefixIcon() {
     if (widget.isEmail) {
       return Container(
-        width: 48, // Fixed container width
-        height: 48, // Fixed container height
+        width: 48,
+        height: 48,
         alignment: Alignment.center,
         child: Icon(
           Icons.email_outlined,
@@ -891,17 +888,17 @@ class _TextInputWidgetState extends State<TextInputWidget> {
       );
     } else if (widget.prefixSvgPath != null) {
       return Container(
-        width: 48, // Fixed container width
-        height: 48, // Fixed container height
+        width: 48,
+        height: 48,
         alignment: Alignment.center,
         child: SizedBox(
-          width: widget.iconSize, // Constrain SVG size
-          height: widget.iconSize, // Constrain SVG size
+          width: widget.iconSize,
+          height: widget.iconSize,
           child: SvgPicture.asset(
             widget.prefixSvgPath!,
             width: widget.iconSize,
             height: widget.iconSize,
-            fit: BoxFit.contain, // Ensure it fits within the constraints
+            fit: BoxFit.contain,
             colorFilter: ColorFilter.mode(
               _getIconColor(),
               BlendMode.srcIn,
@@ -911,8 +908,8 @@ class _TextInputWidgetState extends State<TextInputWidget> {
       );
     } else if (widget.prefixIcon != null) {
       return Container(
-        width: 48, // Fixed container width
-        height: 48, // Fixed container height
+        width: 48,
+        height: 48,
         alignment: Alignment.center,
         child: Icon(
           widget.prefixIcon!.icon,
@@ -944,13 +941,13 @@ class _TextInputWidgetState extends State<TextInputWidget> {
       return IconButton(
         onPressed: widget.onSuffixIconPressed,
         icon: SizedBox(
-          width: widget.iconSize, // Constrain SVG size
-          height: widget.iconSize, // Constrain SVG size
+          width: widget.iconSize,
+          height: widget.iconSize,
           child: SvgPicture.asset(
             widget.suffixSvgPath!,
             width: widget.iconSize,
             height: widget.iconSize,
-            fit: BoxFit.contain, // Ensure it fits within the constraints
+            fit: BoxFit.contain,
             colorFilter: ColorFilter.mode(
               _getIconColor(),
               BlendMode.srcIn,
@@ -989,13 +986,14 @@ class _TextInputWidgetState extends State<TextInputWidget> {
             children: [
               Text(
                 widget.headerText!,
-                style: widget.headerStyle ?? TAppTextStyle.inter(
-                  color: widget.dark
-                      ? Colors.white.withOpacity(0.66)
-                      : Colors.black.withOpacity(0.66), // Fixed withValues to withOpacity
-                  fontSize: 14.0,
-                  weight: widget.headerFontWeight ?? FontWeight.w400,
-                ),
+                style: widget.headerStyle ??
+                    TAppTextStyle.inter(
+                      color: widget.dark
+                          ? Colors.white.withOpacity(0.66)
+                          : Colors.black.withOpacity(0.66),
+                      fontSize: 14.0,
+                      weight: widget.headerFontWeight ?? FontWeight.w400,
+                    ),
               ),
               if (widget.isRequired)
                 Text(
@@ -1010,6 +1008,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
           ),
           const SizedBox(height: QSizes.inputFieldRadius - 4),
         ],
+        // Main input field with fixed height
         SizedBox(
           height: widget.height,
           child: TextFormField(
@@ -1033,7 +1032,9 @@ class _TextInputWidgetState extends State<TextInputWidget> {
               hintText: widget.hintText,
               hintStyle: TAppTextStyle.inter(
                 color: widget.hintTextColor ??
-                    (widget.dark ? QColors.darkTextTertiary : QColors.lightTextTertiary),
+                    (widget.dark
+                        ? QColors.darkTextTertiary
+                        : QColors.lightTextTertiary),
                 fontSize: 14.0,
                 weight: FontWeight.w400,
               ),
@@ -1049,7 +1050,8 @@ class _TextInputWidgetState extends State<TextInputWidget> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: widget.radius ?? BorderRadius.circular(8.0),
-                borderSide: BorderSide(width: 1.0, color: _getFocusedBorderColor()),
+                borderSide:
+                BorderSide(width: 1.0, color: _getFocusedBorderColor()),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: widget.radius ?? BorderRadius.circular(8.0),
@@ -1059,13 +1061,9 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                 borderRadius: widget.radius ?? BorderRadius.circular(8.0),
                 borderSide: BorderSide(width: 1.0, color: _getErrorBorderColor()),
               ),
-              errorText: widget.errorText,
-              errorStyle: TAppTextStyle.inter(
-                color: Colors.red,
-                fontSize: 12,
-                weight: FontWeight.w400,
-              ),
-              errorMaxLines: 2,
+              // Remove errorText from here - it will be displayed separately below
+              errorText: null,
+              errorStyle: const TextStyle(height: 0, fontSize: 0),
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 18.0,
                 horizontal: 18.0,
@@ -1078,6 +1076,20 @@ class _TextInputWidgetState extends State<TextInputWidget> {
             ),
           ),
         ),
+        // Display error text separately below the field to maintain consistent height
+        if (widget.errorText != null && widget.errorText!.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          Text(
+            widget.errorText!,
+            style: TAppTextStyle.inter(
+              color: _getErrorBorderColor(),
+              fontSize: 12,
+              weight: FontWeight.w400,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ],
     );
   }
