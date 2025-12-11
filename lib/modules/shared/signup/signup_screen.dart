@@ -110,16 +110,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     return isValid;
   }
-
   /// Handle final submission
   void handleSubmit(SignUpProvider provider) async {
     // Validate the final page
     if (!validateAndProceed(provider)) {
       return;
     }
-
-    // Get all form data
-    final formData = provider.getAllFormData();
 
     // Show loading dialog
     showDialog(
@@ -130,31 +126,81 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
 
-    // Simulate API call (replace with your actual API call)
-    await Future.delayed(const Duration(seconds: 2));
+    // Call the registration API
+    bool success = await provider.registerUser();
 
     // Close loading dialog
     if (mounted) Navigator.of(context).pop();
 
-    // Debug: Print form data
-    print("=== SIGNUP FORM DATA ===");
-    formData.forEach((key, value) {
-      print("$key: $value");
-    });
-    print("========================");
+    if (success) {
+      // Registration successful
+      print("=== REGISTRATION SUCCESSFUL ===");
+      print("Response: ${provider.registrationResponse}");
 
-    // TODO: Send data to your backend API
-    // Example:
-    // final response = await AuthService.register(formData);
-    // if (response.success) {
-    //   Navigate to OTP screen
-    // }
+      // Navigate to success screen
+      if (mounted) {
+        AppRouter.router.push('/accountCreationSuccessScreen');
+      }
+    } else {
+      // Registration failed - show error
+      print("=== REGISTRATION FAILED ===");
+      print("Error: ${provider.registrationError}");
 
-    // Navigate to success screen
-    if (mounted) {
-      AppRouter.router.push('/accountCreationSuccessScreen');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(provider.registrationError ?? 'Registration failed. Please try again.'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
     }
   }
+  /// Handle final submission
+  // void handleSubmit(SignUpProvider provider) async {
+  //   // Validate the final page
+  //   if (!validateAndProceed(provider)) {
+  //     return;
+  //   }
+  //
+  //   // Get all form data
+  //   final formData = provider.getAllFormData();
+  //
+  //   // Show loading dialog
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (context) => const Center(
+  //       child: CircularProgressIndicator(),
+  //     ),
+  //   );
+  //
+  //   // Simulate API call (replace with your actual API call)
+  //   await Future.delayed(const Duration(seconds: 2));
+  //
+  //   // Close loading dialog
+  //   if (mounted) Navigator.of(context).pop();
+  //
+  //   // Debug: Print form data
+  //   print("=== SIGNUP FORM DATA ===");
+  //   formData.forEach((key, value) {
+  //     print("$key: $value");
+  //   });
+  //   print("========================");
+  //
+  //   // TODO: Send data to your backend API
+  //   // Example:
+  //   // final response = await AuthService.register(formData);
+  //   // if (response.success) {
+  //   //   Navigate to OTP screen
+  //   // }
+  //
+  //   // Navigate to success screen
+  //   if (mounted) {
+  //     AppRouter.router.push('/accountCreationSuccessScreen');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
