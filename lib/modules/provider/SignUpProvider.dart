@@ -134,6 +134,7 @@ class SignUpProvider extends ChangeNotifier {
       print("Username: ${registerRequest.username}");
       print("User Type: ${registerRequest.userType}");
       print("DOB: ${registerRequest.dob}");
+      print("Password: ${registerRequest.password}");
       print("Gender: ${registerRequest.gender}");
       print("Address: ${registerRequest.address}");
       print("City: ${registerRequest.city}");
@@ -170,7 +171,7 @@ class SignUpProvider extends ChangeNotifier {
     return RegisterRequest(
       email: emailController.text.trim(),
       password: passwordController.text.trim(),
-      dob: dobController.text.trim(),
+      dob: _formatDate(dobController.text.trim()), // Format the date
       gender: genderController.text.trim(),
       address: addressLine1Controller.text.trim(),
       city: cityController.text.trim(),
@@ -178,23 +179,34 @@ class SignUpProvider extends ChangeNotifier {
       zipCode: postcodeController.text.trim(),
       country: countryController.text.trim(),
       userType: selectedAccountType,
-      // ⚠️ For PATIENT: send healthIssues, empty specialization fields
-      // ⚠️ For DOCTOR: send specialization fields, empty healthIssues
-      healthIssues: selectedAccountType == "Patient"
+
+      healthIssues: selectedAccountType == "patient"
           ? (medicalHistoryController.text.trim().isNotEmpty
           ? medicalHistoryController.text.trim()
           : '')
-          : '', // Empty for doctors
-      specialization: selectedAccountType == "Doctor"
+          : '',
+      specialization: selectedAccountType == "doctor"
           ? specializationController.text.trim()
-          : '', // Empty for patients
-      specializationIllnessSymptoms: selectedAccountType == "Doctor"
+          : '',
+      specializationIllnessSymptoms: selectedAccountType == "doctor"
           ? specializationSymptomsController.text.trim()
-          : '', // Empty for patients
-      username: '${firstNameController.text.trim()} ${lastNameController.text.trim()}', // Single space
+          : '',
+      username: '${firstNameController.text.trim()}${lastNameController.text.trim()}', firstName: firstNameController.text.trim(), lastName: lastNameController.text.trim(), // No space or with underscore
     );
   }
 
+  String _formatDate(String input) {
+    try {
+      // Convert from DD/MM/YYYY to YYYY-MM-DD
+      final parts = input.split('/');
+      if (parts.length == 3) {
+        return '${parts[2]}-${parts[1]}-${parts[0]}';
+      }
+      return input; // Return as-is if format is different
+    } catch (e) {
+      return input;
+    }
+  }
   String _extractErrorMessage(String error) {
     // Remove "Exception: " prefix if present
     if (error.startsWith('Exception: ')) {
@@ -383,7 +395,7 @@ class SignUpProvider extends ChangeNotifier {
     bool isValid = true;
 
     // Doctor-specific validation
-    if (selectedAccountType == "Doctor") {
+    if (selectedAccountType == "doctor") {
       // Specialization Validation
       if (specializationController.text.trim().isEmpty) {
         specializationError = "Specialization is required for doctors";

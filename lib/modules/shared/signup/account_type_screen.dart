@@ -40,17 +40,17 @@ class AccountTypeScreen extends StatelessWidget {
                 children: [
                   _typeButton(
                     context,
-                    "Patient",
+                    "patient",
                     isDark,
                     provider.selectedAccountType,
-                        () => provider.setAccountType("Patient"),
+                        () => provider.setAccountType("patient"),
                   ),
                   _typeButton(
                     context,
-                    "Doctor",
+                    "doctor",
                     isDark,
                     provider.selectedAccountType,
-                        () => provider.setAccountType("Doctor"),
+                        () => provider.setAccountType("doctor"),
                   ),
                 ],
               ),
@@ -58,7 +58,7 @@ class AccountTypeScreen extends StatelessWidget {
               const SizedBox(height: 32),
 
               /// ---------------- DOCTOR SPECIALIZATION FIELDS ----------------
-              if (provider.selectedAccountType == "Doctor") ...[
+              if (provider.selectedAccountType == "doctor") ...[
                 Center(
                   child: Text(
                     "Doctor Information",
@@ -94,7 +94,7 @@ class AccountTypeScreen extends StatelessWidget {
               ],
 
               /// ---------------- MEDICAL HISTORY (for Patients) ----------------
-              if (provider.selectedAccountType == "Patient") ...[
+              if (provider.selectedAccountType == "patient") ...[
                 Center(
                   child: Text(
                     "Medical History",

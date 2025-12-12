@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../routes/app_routes.dart';
@@ -139,7 +140,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       // Navigate to success screen
       if (mounted) {
-        AppRouter.router.push('/accountCreationSuccessScreen');
+
+        context.go('/accountCreationSuccessScreen');  // 🔥 Clears entire navigation stack
+        // AppRouter.router.pushNamedAndRemoveUntil(
+        //   '/accountCreationSuccessScreen',
+        //       (route) => false, // 🔥 Clear ALL previous routes
+        // );
+
+        // AppRouter.router.pushReplacement('/accountCreationSuccessScreen');
       }
     } else {
       // Registration failed - show error

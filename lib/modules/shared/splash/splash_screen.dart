@@ -3,11 +3,14 @@ import 'dart:math' show cos, sin, pi;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:quickmed/utils/app_text_style.dart';
 import 'package:quickmed/utils/device_utility.dart';
 import 'package:quickmed/utils/image_path.dart';
+import '../../../data/local/UserPreferences.dart';
 import '../../../utils/theme/colors/q_color.dart';
 import '../../../utils/widgets/quick_med_logo.dart';
+import '../../provider/LoginProvider.dart'; // Add this import
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _fadeController;
   late AnimationController _dotsController;
   late Animation<double> _fadeAnimation;
+  final UserPreferences _userPrefs = UserPreferences();
 
   @override
   void initState() {
@@ -43,14 +47,70 @@ class _SplashScreenState extends State<SplashScreen>
 
     _fadeController.forward();
 
-    // Navigate to LoginScreen after 3 seconds
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        context.go('/loginScreen'); // GoRouter navigation
-      }
-    });
+    // Check authentication and navigate after 3 seconds
+    _checkAuthAndNavigate();
   }
 
+  /// Check if user is logged in and navigate accordingly
+  Future<void> _checkAuthAndNavigate() async {
+    await Future.delayed(const Duration(seconds: 3));
+
+    if (!mounted) return;
+
+    try {
+      // Check if user is logged in
+      final isLoggedIn = await _userPrefs.isLoggedIn();
+      final hasToken = await _userPrefs.hasToken();
+
+      if (isLoggedIn && hasToken) {
+        print('✅ User is logged in');
+
+        // Get LoginProvider to refresh profile
+        final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+
+        // Fetch and update profile from API
+        print('🔄 Fetching latest profile...');
+        final success = await loginProvider.fetchUserProfile();
+
+        if (success) {
+          print('✅ Profile updated successfully');
+        } else {
+          print('⚠️ Profile update failed, using cached data');
+        }
+
+        // Get user data to determine navigation
+        final userData = await _userPrefs.getUserData();
+
+        if (userData != null) {
+          print('👤 User type: ${userData.userType}');
+
+          // Navigate based on user type
+          if (userData.isDoctor) {
+            context.go('/doctorBottomNavScreen');
+          } else if (userData.isPatient) {
+            context.go('/patientBottomNavScreen');
+          } else {
+            // Default if user type is unknown
+            context.go('/patientBottomNavScreen');
+          }
+        } else {
+          // User data not found, go to login
+          print('⚠️ User data not found');
+          context.go('/loginScreen');
+        }
+      } else {
+        // User not logged in, go to login
+        print('ℹ️ User not logged in');
+        context.go('/loginScreen');
+      }
+    } catch (e) {
+      print('❌ Error in splash screen: $e');
+      // On error, navigate to login
+      if (mounted) {
+        context.go('/loginScreen');
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -74,7 +134,6 @@ class _SplashScreenState extends State<SplashScreen>
               fadeAnimation: _fadeAnimation,
               isDark: isDark,
             ),
-
 
             const SizedBox(height: 25),
 
@@ -187,5 +246,4 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
   }
-
 }
