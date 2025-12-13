@@ -10,6 +10,6 @@ class ApiEndpoints{
 
   static const String patientBookings = '/bookings/patient-bookings';
   static String deleteBooking(int id) => '/bookings/$id'; //
-
+  static const String findDoctors = '/auth/find-doctors/';
 
 }

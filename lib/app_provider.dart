@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:quickmed/modules/provider/DoctorProvider.dart';
 import 'package:quickmed/modules/provider/LoginProvider.dart';
 
 import 'core/di/InjectionContainer.dart';
@@ -21,6 +22,9 @@ class AppProviders {
       ),
       ChangeNotifierProvider<LoginProvider>.value(
         value: di.loginProvider,
+      ),
+      ChangeNotifierProvider<DoctorProvider>.value(
+        value: di.doctorProvider,
       ),
 
       // Add more providers here as your app grows
